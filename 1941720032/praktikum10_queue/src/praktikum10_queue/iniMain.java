@@ -49,13 +49,23 @@ public class iniMain {
                 case 5:
                     qq.peekRear();
                     break;
+                case 6:
+                    System.out.print("Masukkan data: ");
+                    int a = nursukma.nextInt();
+                    qq.peekPosition(a);
+                    break;    
+                case 7:
+                    System.out.print("Masukkan posisi: ");
+                    int b = nursukma.nextInt();
+                    qq.peekAt(b);
+                    break;    
                 case 0:
                     System.exit(0);
                     break;
                 default:
                     System.out.println("Maaf input salah");
             }
-        } while (pilih == 1 || pilih == 2 || pilih == 3 || pilih == 4);
+        } while (pilih == 1 || pilih == 2 || pilih == 3 || pilih == 4 || pilih == 5 || pilih == 6 || pilih == 7);
     }
 
     public static void menu() {
@@ -65,6 +75,8 @@ public class iniMain {
         System.out.println("3. Print");
         System.out.println("4. Peek");
         System.out.println("5. Peek Rear");
+        System.out.println("6. Peek Position");
+        System.out.println("7. Peek At");
         System.out.println("0. Keluar");
         System.out.println("-----------------------------------------");
     }

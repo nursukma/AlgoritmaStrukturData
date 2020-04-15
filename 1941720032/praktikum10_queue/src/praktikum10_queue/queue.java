@@ -107,4 +107,29 @@ public class queue {
         }
         return data;    
     }
+    
+    void peekPosition(int data){
+        if(!isEmpty()){
+            for(int i=front;i<=rear;i++){
+                if(data == q[i]){
+                    System.out.println("Data terletak di index ke-"+i);
+                    break;
+                }
+            }
+        }else{
+            System.out.println("Antrian masih kosong");
+        }
+    }
+    
+    void peekAt(int position){
+        if(!isEmpty()){
+            if(position <= max){
+                System.out.println("Data index ke-"+position+" adalah "+q[position]);
+            }else{
+                System.out.println("Index tidak valid");
+            }
+        }else{
+            System.out.println("Antrian masih kosong");
+        }
+    }
 }
