@@ -125,6 +125,9 @@ public class Jobsheet11_algo {
                                 System.out.println("Maaf inputan tidak cocok");
                         }
                         break;
+                    case 0:
+                        System.exit(0);
+                        break;
                     default:
                         System.out.println("Maaf inputan tidak cocok");
                 }
