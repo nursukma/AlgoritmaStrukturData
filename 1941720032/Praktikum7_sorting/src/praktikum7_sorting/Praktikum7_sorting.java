@@ -15,12 +15,12 @@ public class Praktikum7_sorting {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int data[] = {10, 40, 30, 50,70,20,100,90};
+        int data[] = {7,14,20,23,37,46,67,89};
         
         Searching pencarian =new Searching(data,8);
         System.out.println("isi Array : ");
         pencarian.TampilData();
-        int cari = 30;
+        int cari = 37;
         
         System.out.println("menggunakan sequential search");
         int posisi = pencarian.findSeqSearch(cari);

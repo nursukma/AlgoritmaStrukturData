@@ -8,13 +8,15 @@ package jobsheet11_algo;
 /**
  *
  * @author USER
+ * @param <T>
  */
-public class Node {
-    int data;
-    Node next;
+public class Node <T>{
+    T data;
+    Node <T> next;
 
-    public Node(int data, Node next) {
+    public Node(T data, Node <T> next) {
         this.data = data;
         this.next = next;
     }
+    
 }
