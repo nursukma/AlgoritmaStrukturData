@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsheet11_algo;
+package tugas1;
 
 /**
  *
  * @author USER
  * @param <T>
  */
-public class LinkedLists<T> {
+public class LinkedList<T> {
 
-    Node head;
+    Node<T> head;
     int size;
 
-    public LinkedLists() {
+    public LinkedList() {
         head = null;
         size = 0;
     }
@@ -24,12 +24,12 @@ public class LinkedLists<T> {
         return head == null;
     }
 
-    public void addFirst(Object item) {
-        head = new Node(item, head);
+    public void addFirst(T item) {
+        head = new Node<T>(item, head);
         size++;
     }
 
-    public void add(Object item, int index) throws Exception {
+    public void add(T item, int index) throws Exception {
         if (index < 0 || index > size) {
             throw new Exception("Nilai indeks di luar batas");
         }
@@ -46,23 +46,23 @@ public class LinkedLists<T> {
         }
     }
 
-    public void addByValue(Object item, Object value) throws Exception {
+    public void addByValue(T item, int cari) throws Exception {
         if (IsEmpty()) {
             addFirst(item);
         } else {
-            Node tmp = head;
-            while (tmp != null && !tmp.data.equals(item)) {
+            Node<T> tmp = head;
+            while (tmp != null && tmp.data.equals(cari)) {
                 tmp = tmp.next;
             }
 
             if (tmp != null) {
-                tmp.next = new Node(value, tmp.next);
+                tmp.next = new Node(item, tmp.next);
             }
             size++;
         }
     }
 
-    public void addLast(Object item) {
+    public void addLast(T item) {
         if (IsEmpty()) {
             addFirst(item);
         } else {
@@ -86,25 +86,22 @@ public class LinkedLists<T> {
         return tmp.data;
     }
 
-    public int getValue(Object item) throws Exception {
+    public int getValue(int item) throws Exception {
         if (IsEmpty()) {
             throw new Exception("Nilai index di luar batas");
         }
-        Node tmp = head;
-
+        Node<T> tmp = head;
+         
         int i = 0;
-        while (tmp != null && i<size) {
-            if(tmp.data.equals(item)){
+        while (tmp != null) {
+            String a = tmp.data.toString().substring(0, 3);
+            if(Integer.parseInt(a) == item){
                 break;
             }else{
                 tmp = tmp.next;
             }
             i++;
         }
-
-//        if(tmp != null){
-//            throw new Exception("Data "+tmp.data+" terletak di index "+i);
-//        }
         return i;
     }
 
@@ -125,13 +122,14 @@ public class LinkedLists<T> {
         }
     }
 
-    public void removeByValue(Object item) throws Exception {
+    public void removeByValue(int item) throws Exception {
         if (IsEmpty()) {
             throw new Exception("Nilai index di luar batas");
         } else {
-            Node prev = head;
-            Node cur = head.next;
-            while (prev != null && !prev.data.equals(item) && cur != null && !cur.data.equals(item)) {
+            Node<T> prev = head;
+            Node<T> cur = head.next;
+            Mahasiswa m = new Mahasiswa();
+            while (prev != null && cur != null && prev.data.equals(m.getNim() == item)) {
                 prev = cur;
                 cur = prev.next;
             }
@@ -152,9 +150,9 @@ public class LinkedLists<T> {
 
     public void print() {
         if (!IsEmpty()) {
-            Node tmp = head;
+            Node<T> tmp = head;
             while (tmp != null) {
-                System.out.println(tmp.data + "\t");
+                System.out.println(tmp.data + "\t\t");
                 tmp = tmp.next;
             }
             System.out.println();

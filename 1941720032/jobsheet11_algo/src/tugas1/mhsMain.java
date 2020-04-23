@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsheet11_algo;
+package tugas1;
 
 import java.util.Scanner;
 
@@ -11,24 +11,21 @@ import java.util.Scanner;
  *
  * @author USER
  */
-public class Jobsheet11_algo {
+public class mhsMain {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        LinkedLists data = new LinkedLists();
+        LinkedList<Mahasiswa> data = new LinkedList<Mahasiswa>();
         int pilihan;
         char pilih;
         Scanner nursukma = new Scanner(System.in);
         nursukma.useDelimiter("\n");
 
         try {
-            data.addFirst(1);
-            data.add(10, 1);
-            data.add("Sukma", 2);
-            data.add('Z', 3);
-            data.add(true, 4);
+            data.addFirst(new Mahasiswa(101, "Nur", "Jl. Bakau"));
+            data.add(new Mahasiswa(102, "Sukma", "Jl. Mawar"), 1);
+            data.add(new Mahasiswa(103, "Pandawa", "Jl. Melati"), 2);
+            data.add(new Mahasiswa(104, "Nur Sukma", "Jl. Kunkun"), 3);
+            data.add(new Mahasiswa(105, "Nur Sukma P", "Jl. Namnam"), 4);
             do {
                 menu();
                 pilihan = nursukma.nextInt();
@@ -44,31 +41,51 @@ public class Jobsheet11_algo {
 
                         switch (pilih) {
                             case 'a':
-                                System.out.print("Data yang akan ditambah: ");
-                                Object add = nursukma.next();
-                                data.addFirst(add);
+                                System.out.println("Data yang akan ditambah ");
+                                System.out.print("NIM\t: ");
+                                int nim = nursukma.nextInt();
+                                System.out.print("Nama\t: ");
+                                String nama = nursukma.next();
+                                System.out.print("Alamat\t: ");
+                                String alamat = nursukma.next();
+                                data.addFirst(new Mahasiswa(nim, nama, alamat));
                                 data.print();
                                 break;
                             case 'b':
-                                System.out.print("Data yang akan ditambah: ");
-                                add = nursukma.next();
-                                data.addLast(add);
+                                System.out.println("Data yang akan ditambah: ");
+                                System.out.print("NIM\t: ");
+                                nim = nursukma.nextInt();
+                                System.out.print("Nama\t: ");
+                                nama = nursukma.next();
+                                System.out.print("Alamat\t: ");
+                                alamat = nursukma.next();
+                                data.addLast(new Mahasiswa(nim, nama, alamat));
                                 data.print();
                                 break;
                             case 'c':
-                                System.out.print("Data yang akan ditambah: ");
-                                add = nursukma.next();
+                                System.out.println("Data yang akan ditambah: ");
+                                System.out.print("NIM\t: ");
+                                nim = nursukma.nextInt();
+                                System.out.print("Nama\t: ");
+                                nama = nursukma.next();
+                                System.out.print("Alamat\t: ");
+                                alamat = nursukma.next();
                                 System.out.print("Letak index data: ");
                                 int ind = nursukma.nextInt();
-                                data.add(add, ind);
+                                data.add(new Mahasiswa(nim, nama, alamat), ind);
                                 data.print();
                                 break;
                             case 'd':
-                                System.out.print("Data yang akan ditambah: ");
-                                add = nursukma.next();
-                                System.out.print("Letak data setelah: ");
-                                Object cari = nursukma.next();
-                                data.addByValue(cari, add);
+                                System.out.println("Data yang akan ditambah: ");
+                                System.out.print("NIM\t: ");
+                                nim = nursukma.nextInt();
+                                System.out.print("Nama\t: ");
+                                nama = nursukma.next();
+                                System.out.print("Alamat\t: ");
+                                alamat = nursukma.next();
+                                System.out.print("Letak data sebelum [NIM]: ");
+                                int cari = nursukma.nextInt();
+                                data.addByValue(new Mahasiswa(nim,nama,alamat), cari);
                                 data.print();
                                 break;
                             default:
@@ -91,8 +108,8 @@ public class Jobsheet11_algo {
                                 data.print();
                                 break;
                             case 'b':
-                                System.out.print("Masukkan value: ");
-                                Object remove = nursukma.next();
+                                System.out.print("Masukkan NIM: ");
+                                int remove = nursukma.nextInt();
                                 data.removeByValue(remove);
                                 data.print();
                                 break;
@@ -110,17 +127,17 @@ public class Jobsheet11_algo {
                         System.out.println("b. Cari berdasar value");
                         System.out.print("Pilih [a-b]: ");
                         pilih = nursukma.next().charAt(0);
-                        
+
                         switch (pilih) {
                             case 'a':
                                 System.out.print("Masukkan index: ");
                                 int ind = nursukma.nextInt();
-                                System.out.println("Hasil pencarian: "+data.get(ind));
+                                System.out.println("Hasil pencarian: " + data.get(ind));
                                 break;
                             case 'b':
-                                System.out.print("Masukkan value: ");
-                                Object remove = nursukma.next();
-                                System.out.println("Data di index "+data.getValue(remove));
+                                System.out.print("Masukkan NIM: ");
+                                int remove = nursukma.nextInt();
+                                System.out.println("Data di index " + data.getValue(remove));
                                 break;
                             default:
                                 System.out.println("Maaf inputan tidak cocok");
