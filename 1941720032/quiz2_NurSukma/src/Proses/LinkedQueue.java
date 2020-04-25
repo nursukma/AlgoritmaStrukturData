@@ -6,6 +6,7 @@
 package Proses;
 
 import dataobject.DataPasien;
+import java.util.HashMap;
 
 /**
  *
@@ -123,28 +124,59 @@ public class LinkedQueue {
     }
 
     public void infoKeluhan() {
+        Node head = front;
         if (isEmpty()) {
-            System.out.println("Antrian masih kosong");
-        } else {
-            Node tmp = front;
-            Node ptr, dup = null;
-            int i = 1;
-            while (tmp != null && tmp.getNext() != null) {
-                ptr = tmp;
-                while (ptr.getNext() != null) {
-                    if (tmp.getData().getKeluhan() == ptr.getNext().data.getKeluhan()) {
-                        dup = ptr.getNext();
-                        ptr.next = ptr.next.getNext();
-                        i++;
-                    } else {
-                        ptr = ptr.getNext();
-                        System.out.println(ptr.data.getKeluhan() + ": " + 1 + " pasien");
-                    }
-                }
-                System.out.println(tmp.data.getKeluhan() + ": " + i + " pasien");
-                tmp = tmp.getNext();
+            System.out.println("kosong");
+        }
+
+        HashMap<Integer, Integer> s = new HashMap<>();
+        s.put(head.data.getKeluhan(), 1);
+
+        for (Node curr = head.next; curr != null; curr = curr.next) {
+            if (s.containsKey(curr.data.getKeluhan())) {
+                s.replace(curr.data.getKeluhan(), s.get(curr.getData().getKeluhan()) + 1);
+            } else {
+                s.put(curr.data.getKeluhan(), 0);
+                s.replace(curr.data.getKeluhan(), s.get(curr.getData().getKeluhan()) + 1);
             }
         }
+
+        s.entrySet().forEach((mapElement) -> {
+            int marks = ((int) mapElement.getValue());
+            String keluhan = "";
+
+            switch (mapElement.getKey()) {
+                case 1:
+                    keluhan = "Demam";
+                    break;
+                case 2:
+                    keluhan = "Flu";
+                    break;
+                case 3:
+                    keluhan = "Sakit Kepala";
+                    break;
+                case 4:
+                    keluhan = "Asma";
+                    break;
+                case 5:
+                    keluhan = "Diare";
+                    break;
+                case 6:
+                    keluhan = "Sakit Gigi";
+                    break;
+                case 7:
+                    keluhan = "Sakit Mata";
+                    break;
+                case 8:
+                    keluhan = "Kesleo";
+                    break;
+                case 9:
+                    keluhan = "Susah Tidur";
+                    break;
+            }
+
+            System.out.println(keluhan + "\t\t: " + marks);
+        });
     }
 
     public void insert(DataPasien data) {
@@ -179,8 +211,13 @@ public class LinkedQueue {
             return;
         }
         Node<DataPasien> ptr = front;
+        
+        String format = "%1$-5s|%2$-20s|%3$-8s|%4$-10s\n";
+        System.out.format(format, "No", "Nama", "Keluhan", "Waktu");
+        
         while (ptr != rear.getNext()) {
-            System.out.print(ptr.getData() + "\n");
+            System.out.format(String.format(format, ptr.getData().getNo(), 
+                    ptr.getData().getNama(), ptr.getData().getKeluhan(), ptr.getData().getWaktu()+" menit"));
             ptr = ptr.getNext();
         }
         System.out.println();
