@@ -6,7 +6,6 @@
 package Proses;
 
 import dataobject.DataPasien;
-import java.util.NoSuchElementException;
 
 /**
  *
@@ -28,6 +27,13 @@ public class LinkedQueue {
 
     public int getSize() {
         return size;
+    }
+
+    public int getLastNo() {
+        if (isEmpty()) {
+            return 0;
+        }
+        return rear.getData().getNo();
     }
 
     public int getTotalWaktu() {
@@ -88,7 +94,7 @@ public class LinkedQueue {
             Node tmp = front;
             int i = 0;
             int ttl = 0;
-            while (tmp!= null && i < size) {
+            while (tmp != null && i < size) {
                 ttl += tmp.getData().getWaktu();
                 i++;
                 tmp.getNext();
@@ -96,17 +102,17 @@ public class LinkedQueue {
             return (ttl / size);
         }
     }
-    
-    public Object getInfo(int no){
+
+    public Object getInfo(int no) {
         if (isEmpty()) {
             return "Antrian masih kosong";
-        }else{
+        } else {
             Node tmp = front;
             Object data = null;
-            while(tmp != null){
-                if(no == tmp.getData().getNo()){
+            while (tmp != null) {
+                if (no == tmp.getData().getNo()) {
                     data = tmp.getData();
-                }else{
+                } else {
                     data = "Inputan tidak valid";
                     break;
                 }
@@ -115,22 +121,27 @@ public class LinkedQueue {
             return data;
         }
     }
-    
-    public void infoKeluhan(){
+
+    public void infoKeluhan() {
         if (isEmpty()) {
             System.out.println("Antrian masih kosong");
-        }else{
+        } else {
             Node tmp = front;
+            Node ptr, dup = null;
             int i = 1;
-            while(tmp != null && tmp.getNext() != null){
-                if(tmp.getData().getKeluhan() == tmp.getNext().data.getKeluhan()){
-                    i++;
-                    System.out.println(tmp.data.getKeluhan()+": "+i+" pasien");
-                    tmp = tmp.getNext();
-                }else{
-                    i = 1;
-                    System.out.println(tmp.data.getKeluhan()+": "+i+" pasien");
+            while (tmp != null && tmp.getNext() != null) {
+                ptr = tmp;
+                while (ptr.getNext() != null) {
+                    if (tmp.getData().getKeluhan() == ptr.getNext().data.getKeluhan()) {
+                        dup = ptr.getNext();
+                        ptr.next = ptr.next.getNext();
+                        i++;
+                    } else {
+                        ptr = ptr.getNext();
+                        System.out.println(ptr.data.getKeluhan() + ": " + 1 + " pasien");
+                    }
                 }
+                System.out.println(tmp.data.getKeluhan() + ": " + i + " pasien");
                 tmp = tmp.getNext();
             }
         }

@@ -52,7 +52,7 @@ public class Quiz2_NurSukma {
                     if (keluhan < 1 || keluhan > 9) {
                         System.out.println("Masukkan input yang benar");
                     } else {
-                        lq.insert(new DataPasien(lq.getSize() + 1, nama, keluhan, list.get((keluhan - 1)).getWaktu()));
+                        lq.insert(new DataPasien(lq.getLastNo() +1, nama, keluhan, list.get((keluhan - 1)).getWaktu()));
 
                         System.out.println("----------------------------------");
                         lq.print();
@@ -108,7 +108,8 @@ public class Quiz2_NurSukma {
                     list.clear();
                     break;
                 case 0:
-                    System.exit(0);
+//                    System.exit(0);
+                    lq.print();
                     break;
                 default:
                     System.out.println("Maaf inputan tidak sesuai");
