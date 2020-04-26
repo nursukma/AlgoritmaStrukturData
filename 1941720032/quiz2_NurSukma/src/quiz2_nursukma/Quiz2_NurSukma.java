@@ -112,8 +112,7 @@ public class Quiz2_NurSukma {
                     list.clear();
                     break;
                 case 0:
-                    lq.print();
-//                    System.exit(0);
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Maaf inputan tidak sesuai");
