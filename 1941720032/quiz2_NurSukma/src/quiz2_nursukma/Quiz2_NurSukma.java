@@ -8,6 +8,7 @@ package quiz2_nursukma;
 import Proses.LinkedQueue;
 import dataobject.DataKeluhan;
 import dataobject.DataPasien;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -99,7 +100,10 @@ public class Quiz2_NurSukma {
                     list.clear();
                     break;
                 case 6:
-                    System.out.println("Rata-rata waktu penanganan: " + lq.getRata()+" menit");
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    double d = Double.valueOf(df.format(lq.getTotalWaktu() / lq.getSize()));
+                    System.out.println("Rata-rata waktu penanganan: " + 
+                            d +" menit");
                     list.clear();
                     break;
                 case 7:
@@ -108,7 +112,8 @@ public class Quiz2_NurSukma {
                     list.clear();
                     break;
                 case 0:
-                    System.exit(0);
+                    lq.print();
+//                    System.exit(0);
                     break;
                 default:
                     System.out.println("Maaf inputan tidak sesuai");

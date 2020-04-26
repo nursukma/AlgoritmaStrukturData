@@ -72,7 +72,7 @@ public class LinkedQueue {
     }
     
     public int getWaktuByNum(int no) {
-        if (isEmpty() && no == 0 || no >= size) {
+        if (isEmpty() && no == 0) {
             return 0;
         } else {
             Node tmp = front;
@@ -88,7 +88,7 @@ public class LinkedQueue {
     }
     
     public int getAntri(int no) {
-        if (isEmpty() && no == 0 || no >= size) {
+        if (isEmpty() && no == 0) {
             return 0;
         } else {
             Node tmp = front;
