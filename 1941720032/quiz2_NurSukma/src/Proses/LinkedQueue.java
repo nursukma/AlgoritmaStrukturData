@@ -115,9 +115,6 @@ public class LinkedQueue {
             while (tmp != null) {
                 if (no == tmp.getData().getNo()) {
                     data = tmp.getData();
-                } else {
-                    data = "Inputan tidak valid";
-                    break;
                 }
                 tmp = tmp.getNext();
             }
