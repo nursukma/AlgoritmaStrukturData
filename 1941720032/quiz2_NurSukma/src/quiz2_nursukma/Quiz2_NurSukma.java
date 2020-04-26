@@ -99,7 +99,7 @@ public class Quiz2_NurSukma {
                     list.clear();
                     break;
                 case 6:
-                    System.out.println("Rata-rata waktu penanganan" + lq.getRata());
+                    System.out.println("Rata-rata waktu penanganan: " + lq.getRata()+" menit");
                     list.clear();
                     break;
                 case 7:

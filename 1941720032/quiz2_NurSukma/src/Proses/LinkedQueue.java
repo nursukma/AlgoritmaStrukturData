@@ -6,6 +6,7 @@
 package Proses;
 
 import dataobject.DataPasien;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 /**
@@ -13,30 +14,47 @@ import java.util.HashMap;
  * @author USER
  */
 public class LinkedQueue {
-
+    
     protected Node<DataPasien> front, rear;
     public int size;
-
+    
     public LinkedQueue() {
         front = rear = null;
         size = 0;
     }
-
+    
     public boolean isEmpty() {
         return front == null;
     }
-
+    
     public int getSize() {
         return size;
     }
-
+    
     public int getLastNo() {
         if (isEmpty()) {
             return 0;
         }
         return rear.getData().getNo();
     }
-
+    
+    public double getRata() {
+        if (isEmpty()) {
+            return 0;
+        } else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            Node tmp = front;
+            int i = 0;
+            int ttl = 0;
+            while (tmp != null && i < size) {
+                ttl += tmp.getData().getWaktu();
+                tmp = tmp.getNext();
+                i++;
+            }
+            return Double.valueOf(df.format(ttl / size));
+        }
+    }
+    
     public int getTotalWaktu() {
         if (isEmpty()) {
             return 0;
@@ -52,7 +70,7 @@ public class LinkedQueue {
             return ttl;
         }
     }
-
+    
     public int getWaktuByNum(int no) {
         if (isEmpty() && no == 0 || no >= size) {
             return 0;
@@ -68,7 +86,7 @@ public class LinkedQueue {
             return ttl;
         }
     }
-
+    
     public int getAntri(int no) {
         if (isEmpty() && no == 0 || no >= size) {
             return 0;
@@ -87,23 +105,7 @@ public class LinkedQueue {
             return ttl;
         }
     }
-
-    public int getRata() {
-        if (isEmpty()) {
-            return 0;
-        } else {
-            Node tmp = front;
-            int i = 0;
-            int ttl = 0;
-            while (tmp != null && i < size) {
-                ttl += tmp.getData().getWaktu();
-                i++;
-                tmp.getNext();
-            }
-            return (ttl / size);
-        }
-    }
-
+    
     public Object getInfo(int no) {
         if (isEmpty()) {
             return "Antrian masih kosong";
@@ -122,16 +124,16 @@ public class LinkedQueue {
             return data;
         }
     }
-
+    
     public void infoKeluhan() {
         Node head = front;
         if (isEmpty()) {
             System.out.println("kosong");
         }
-
+        
         HashMap<Integer, Integer> s = new HashMap<>();
         s.put(head.data.getKeluhan(), 1);
-
+        
         for (Node curr = head.next; curr != null; curr = curr.next) {
             if (s.containsKey(curr.data.getKeluhan())) {
                 s.replace(curr.data.getKeluhan(), s.get(curr.getData().getKeluhan()) + 1);
@@ -140,11 +142,11 @@ public class LinkedQueue {
                 s.replace(curr.data.getKeluhan(), s.get(curr.getData().getKeluhan()) + 1);
             }
         }
-
+        
         s.entrySet().forEach((mapElement) -> {
             int marks = ((int) mapElement.getValue());
             String keluhan = "";
-
+            
             switch (mapElement.getKey()) {
                 case 1:
                     keluhan = "Demam";
@@ -174,11 +176,11 @@ public class LinkedQueue {
                     keluhan = "Susah Tidur";
                     break;
             }
-
+            
             System.out.println(keluhan + "\t\t: " + marks);
         });
     }
-
+    
     public void insert(DataPasien data) {
         Node tmp = new Node(data, null);
         if (rear == null) {
@@ -189,7 +191,7 @@ public class LinkedQueue {
         }
         size++;
     }
-
+    
     public void remove() {
         if (isEmpty()) {
             System.out.println("Antrian masih kosong");
@@ -202,7 +204,7 @@ public class LinkedQueue {
         size--;
         System.out.println("" + tmp.getData());
     }
-
+    
     public void print() {
         System.out.println("Data antrian");
         System.out.println("----------------------------------");
@@ -216,8 +218,8 @@ public class LinkedQueue {
         System.out.format(format, "No", "Nama", "Keluhan", "Waktu");
         
         while (ptr != rear.getNext()) {
-            System.out.format(String.format(format, ptr.getData().getNo(), 
-                    ptr.getData().getNama(), ptr.getData().getKeluhan(), ptr.getData().getWaktu()+" menit"));
+            System.out.format(String.format(format, ptr.getData().getNo(),
+                    ptr.getData().getNama(), ptr.getData().getKeluhan(), ptr.getData().getWaktu() + " menit"));
             ptr = ptr.getNext();
         }
         System.out.println();
