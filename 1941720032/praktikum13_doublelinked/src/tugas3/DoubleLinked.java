@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doublelinkedlists;
+package tugas3;
 
 /**
  *
  * @author USER
  */
-public class DoubleLinkedLists {
+public class DoubleLinked {
 
-    Node head;
+    Node<Mahasiswa> head;
     int size;
 
-    public DoubleLinkedLists() {
+    public DoubleLinked() {
         head = null;
         size = 0;
     }
@@ -23,18 +23,18 @@ public class DoubleLinkedLists {
         return head == null;
     }
 
-    public void addFirst(int item) {
+    public void addFirst(Mahasiswa m) {
         if (isEmpty()) {
-            head = new Node(null, item, null);
+            head = new Node(null, m, null);
         } else {
-            Node newNode = new Node(null, item, head);
+            Node newNode = new Node(null, m, head);
             head.prev = newNode;
             head = newNode;
         }
         size++;
     }
 
-    public void addLast(int item) {
+    public void addLast(Mahasiswa item) {
         if (isEmpty()) {
             addFirst(item);
         } else {
@@ -48,7 +48,7 @@ public class DoubleLinkedLists {
         }
     }
 
-    public void add(int item, int index) throws Exception {
+    public void add(Mahasiswa item, int index) throws Exception {
         if (isEmpty()) {
             addFirst(item);
         } else if (index < 0 || index > size) {
@@ -90,7 +90,7 @@ public class DoubleLinkedLists {
         } else {
             Node tmp = head;
             while (tmp != null) {
-                System.out.print(tmp.data + "\n");
+                System.out.print(tmp.data.nama + "\t" + tmp.data.nilai + "\n");
                 tmp = tmp.next;
             }
             System.out.println("\nBerhasil diisi");
@@ -151,14 +151,14 @@ public class DoubleLinkedLists {
         }
     }
 
-    public int getFirst() throws Exception {
+    public Object getFirst() throws Exception {
         if (isEmpty()) {
             throw new Exception("Linked Lists Kosong");
         }
         return head.data;
     }
 
-    public int getLast() throws Exception {
+    public Object getLast() throws Exception {
         if (isEmpty()) {
             throw new Exception("Linked Lists Kosong");
         }
@@ -169,7 +169,7 @@ public class DoubleLinkedLists {
         return tmp.data;
     }
 
-    public int get(int index) throws Exception {
+    public Object get(int index) throws Exception {
         if (isEmpty() || index >= size) {
             throw new Exception("Nilai index diluar batas");
         }
@@ -180,16 +180,17 @@ public class DoubleLinkedLists {
         return tmp.data;
     }
 
-    public void getPcc(int data) throws Exception {
+    public void getPcc(String data) throws Exception {
         if (isEmpty()) {
             throw new Exception("Nilai index diluar batas");
         }
         Node tmp = head;
         int index = 0;
         for (int i = 0; i < size; i++) {
-            if (tmp.data == data) {
+            if (tmp.data.nama.contains(data)) {
                 index = i;
                 System.out.println("Data ditemukan di index ke-" + index);
+                break;
             }
             index = 99;
             tmp = tmp.next;
@@ -199,103 +200,119 @@ public class DoubleLinkedLists {
         }
     }
 
-    public int[] addArr() {
+    public String[][] addArr() {
         if (isEmpty()) {
             System.out.println("Linked list kosong");
         }
         Node tmp = head;
-        int arr[] = new int[size];
-        for (int i = 0; i < size; i++) {
+        String arr[][] = new String[size][2];
+        for (int i = 0; i < arr.length; i++) {
             if (tmp != null) {
-                arr[i] = tmp.data;
+                arr[i][0] = tmp.data.nama;
+                arr[i][1] = "" + tmp.data.nilai;
             }
             tmp = tmp.next;
         }
         return arr;
     }
 
-    public void bubbleSort(int arr[]) {
+    public void bubbleSort(String arr[][]) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+                if (Integer.parseInt(arr[j][1]) < Integer.parseInt(arr[j + 1][1])) {
+                    int temp = Integer.parseInt(arr[j][1]);
+                    String t = arr[j][0];
+                    arr[j][1] = arr[j + 1][1];
+                    arr[j][0] = arr[j+1][0];
+                    arr[j + 1][1] = String.valueOf(temp);
+                    arr[j + 1][0] = t;
                 }
             }
         }
     }
 
-    public void insertionSort(int arr[]) {
+    public void insertionSort(String arr[][]) {
         int n = arr.length;
         for (int i = 0; i < n; i++) {
-            int temp = arr[i];
+            int temp = Integer.parseInt(arr[i][1]);
+            String t = arr[i][0];
             int j = i - 1;
 
-            while (j >= 0 && arr[j] > temp) {
-                arr[j + 1] = arr[j];
+            while (j >= 0 && Integer.parseInt(arr[j][1]) < temp) {
+                arr[j + 1][1] = arr[j][1];
+                arr[j+1][0] = arr[j][0];
                 j -= 1;
             }
-            arr[j + 1] = temp;
+            arr[j + 1][1] = String.valueOf(temp);
+            arr[j + 1][0] = t;
         }
     }
-    
-    public void mergeProses(int arr[], int l, int m, int r){
-        int n1 = m-l+1;
-        int n2 = r-m;
-        
-        int L[] = new int[n1];
-        int R[] = new int[n2];
-        
-        for(int i=0;i<n1; i++){
-            L[i] = arr[l+i];
+
+    public void mergeProses(String arr[][], int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        String L[][] = new String[n1][2];
+        String R[][] = new String[n2][2];
+
+        for (int i = 0; i < n1; i++) {
+            L[i][1] = arr[l + i][1];
+            L[i][0] = arr[l + i][0];
         }
-        for(int j=0;j<n2;j++){
-            R[j] = arr[1 +m +j];
+        for (int j = 0; j < n2; j++) {
+            R[j][1] = arr[1 + m + j][1];
+            R[j][0] = arr[1 + m + j][0];
         }
-        
+
         int x = 0, y = 0;
         int k = l;
-        while(x < n1 && y< n2){
-            if(L[x] <= R[y]){
-                arr[k] = L[x];
+        while (x < n1 && y < n2) {
+            if (Integer.parseInt(L[x][1]) >= Integer.parseInt(R[y][1])) {
+                arr[k][1] = L[x][1];
+                arr[k][0] = L[x][0];
                 x++;
-            }else{
-                arr[k] = R[y];
+            } else {
+                arr[k][1] = R[y][1];
+                arr[k][0] = R[y][0];
                 y++;
             }
             k++;
         }
-        
-        while(x < n1){
-            arr[k] = L[x];
+
+        while (x < n1) {
+            arr[k][1] = L[x][1];
+            arr[k][0] = L[x][0];
             x++;
             k++;
         }
-        
-        while(y < n2){
-            arr[k] = R[y];
+
+        while (y < n2) {
+            arr[k][1] = R[y][1];
+            arr[k][0] = R[y][0];
             y++;
             k++;
         }
     }
-    
-    public void mergeSort(int arr[], int l, int r){
-        if(l < r){
-            int m = (l+r)/ 2;
-            
+
+    public void mergeSort(String arr[][], int l, int r) {
+        if (l < r) {
+            int m = (l + r) / 2;
+
             mergeSort(arr, l, m);
-            mergeSort(arr, m+1, r);
-            
+            mergeSort(arr, m + 1, r);
+
             mergeProses(arr, l, m, r);
         }
     }
 
-    public void printArray(int arr[]) {
+    public void printArray(String arr[][]) {
         int n = arr.length;
         for (int i = 0; i < n; ++i) {
-            System.out.print(arr[i] + " ");
+            for (int j = 0; j < arr[i].length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println("");
         }
         System.out.println();
     }
